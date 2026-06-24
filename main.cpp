@@ -1,22 +1,18 @@
 #include <SDL2/SDL.h>
-#include <cmath>
+#include <complex>
+#include <stdint.h>
 #include <stdio.h>
 
-using namespace std;
-#define WIDTH 800
-#define HEIGHT 600
+int WIDTH = 800;
+int HEIGHT = 600;
 
-typedef struct {
-  float left = -2.0;
-  float right = 2.0;
-  float top = -1.5;
-  float bottom = 1.5;
+uint32_t buffer[800 * 600];
 
-} complex_constant;
+double map_pixel(int number, int map_pixel, int new_min, int new_max) {
+  return new_min + ((new_max - new_min) * number) / map_pixel;
+}
 
-SDL_Rect arr[WIDTH * HEIGHT];
 int main() {
-
   bool display_running = true;
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     printf("SDL Error: %s\n", SDL_GetError());
@@ -85,28 +81,34 @@ int main() {
         //
         // then it escaped → that pixel is not in the Julia set.
 
-        /* coordinates */
-        /*  complex number */
+        // ```cpp
+        // float map_pixel(int number, int map_pixel, int new_min, int new_max)
+        // ```
+        double y = map_pixel(i, WIDTH, -2, 2);
+        double x = map_pixel(j, HEIGHT, -2, 2);
 
-        for
+        for (int o = 0; o < 100; o++) {
 
-          int x = -2 + (i * 0.005);
-        int y = -1.5 + (j * 0.005);
-        if ((sqrt(x) + sqrt(y)) > 4) {
-          SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-          SDL_RenderDrawPoint(renderer, x, y);
-          break;
-        } else {
-          SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-          SDL_RenderDrawPoint(renderer, x, y);
+          if ((x ^ 2 + y ^ 2) > 4) {
+            if (o <= 20)
+              buffer[(WIDTH * i) + j] = 0x0000FFFF;
+            else if (o <= 80)
+              buffer[(WIDTH * i) + j] = 0x66CCFFFF;
+            else if (o <= 100)
+              buffer[(WIDTH * i) + j] = 0x00000000;
+          }
         }
       }
     }
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyTexture(texture);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    SDL_UpdateTexture(texture, nullptr, buffer, WIDTH * sizeof(uint32_t));
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    SDL_RenderPresent(renderer);
   }
 
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyTexture(texture);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
   return 0;
 }
