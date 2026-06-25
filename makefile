@@ -1,5 +1,5 @@
-mandel:
-	gcc main.c -o mandel -lSDL2
+julia:
+	g++ main.cpp -o julia -lSDL2
 
 clean:
-	rm -rf mandel *.o
+	rm -rf julia *.o
