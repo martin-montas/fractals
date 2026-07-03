@@ -4,46 +4,53 @@
 #define WIDTH  1000
 #define HEIGHT 1000
 
-// Rotates any point around a custom pivot position
-Vector2 Vector2RotateAroundPivot(Vector2 point, Vector2 pivot, float angleRadians) {
-    // Step 1: Subtract pivot to treat the pivot as (0,0)
-    Vector2 relativePoint = Vector2Subtract(point, pivot);
+void draw_rotate_red(Vector2 start, Vector2 end, float angle) {
+    // finds direction
+    Vector2 localDirection = Vector2Subtract(start, end);
 
-    // Step 2: Rotate around (0,0)
-    Vector2 rotatedRelative = Vector2Rotate(relativePoint, angleRadians);
+    float distance = Vector2Distance(end, start);
+    // makes it smaller
+    Vector2 scaledLocal = Vector2Scale(localDirection, 0.5f);
 
-    // Step 3: Add pivot back to return to screen coordinates
-    return Vector2Add(pivot, rotatedRelative);
+    // STEP D: Convert degrees to radians and rotate the vector
+    Vector2 rotatedScaledLocal = Vector2Rotate(scaledLocal, angle);
+
+    Vector2 finalStart = Vector2Add(end, rotatedScaledLocal);
+
+    DrawLineV(finalStart, end, RED);
 }
 
-float rotationAngle    = 45.0f * DEG2RAD;
+void draw_rotate_blue(Vector2 start, Vector2 end, float angle) {
+    // finds direction
+    Vector2 localDirection = Vector2Subtract(start, end);
+
+    float distance = Vector2Distance(end, start);
+    // makes it smaller
+    Vector2 scaledLocal = Vector2Scale(localDirection, 0.5f);
+
+    // STEP D: Convert degrees to radians and rotate the vector
+    Vector2 rotatedScaledLocal = Vector2Rotate(scaledLocal, angle);
+
+    Vector2 finalStart = Vector2Add(end, rotatedScaledLocal);
+
+    DrawLineV(finalStart, end, BLUE);
+}
+float rotate_right     = 45.0f * DEG2RAD;
+float rotate_left      = 315.0f * DEG2RAD;
 float shrinkPercentage = 0.70f;
-void  render_line(int x1, int y1, int x2, int y2, int depth) {
+
+void render_line(int x1, int y1, int depth) {
     if (depth == 0) {
         return;
     }
-    /* drawing left branch */
-    DrawLine(x1, y1, x2, y2, BLUE);
+    Vector2 line_end   = {x1, y1};
+    Vector2 line_start = {x1, y1 / 2};
 
-    render_line(x1 / 2, y1 / 2, x1, y1, depth - 1);
+    // void draw_rotate_blue(Vector2 start, end, float angle, float shrink);
+    draw_rotate_blue(line_start, line_end, rotate_left);
+    draw_rotate_red(line_start, line_end, rotate_right);
 
-    Vector2 lineStart = {x1 / 2, y1 / 2};
-    Vector2 lineEnd   = {x1, y1};
-
-    Vector2 up = {x1, y1 / 4};
-    // finds direction
-    Vector2 localDirection = Vector2Subtract(up, lineEnd);
-
-    float distance = Vector2Distance(lineEnd, up);
-    // makes it smaller
-    Vector2 scaledLocal = Vector2Scale(localDirection, shrinkPercentage);
-
-    // STEP D: Convert degrees to radians and rotate the vector
-    Vector2 rotatedScaledLocal = Vector2Rotate(scaledLocal, rotationAngle);
-
-    Vector2 finalStart = Vector2Add(lineEnd, rotatedScaledLocal);
-
-    DrawLineV(finalStart, lineEnd, RED);
+    render_line(x1, y1 / 2, depth - 1);
 }
 
 int main() {
@@ -55,7 +62,7 @@ int main() {
         ClearBackground(BLACK);
 
         DrawLine(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT, BLUE);
-        render_line((WIDTH / 2), (HEIGHT / 2), (WIDTH / 2), HEIGHT / 2, 3);
+        render_line(WIDTH / 2, HEIGHT / 2, 3);
         EndDrawing();
     }
 
