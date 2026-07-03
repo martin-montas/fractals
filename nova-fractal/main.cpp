@@ -24,15 +24,18 @@ std::complex<double> nova_formula(std::complex<double> b) {
      *      formula:
      *          zn+1 = zn - A F(zn)/F'(zn) +c
      */
+    // TODO:
     std::complex<double> n;
+    std::complex<double> n0;
 
     std::complex<double> comp_1 = {b.real() - A, b.imag()};
     double               re     = b.real() * A;
     double               im     = b.imag() * A;
     std::complex<double> comp_2 = {re, im};
 
-    n = (comp_1) * ((b * b * b) - 2.0) / (3.0 * (b * b));
-    n = {n.real() + C, n.imag()};
+    n0 = ((b * b * b) - 2.0) / (3.0 * (b * b));
+    n0 = {n0.real() * A, n0.imag() * A};
+    n  = b - n0 + C;
     return n;
 }
 
