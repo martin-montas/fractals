@@ -4,13 +4,13 @@
 #define WIDTH  1000
 #define HEIGHT 1000
 
-void draw_rotate_red(Vector2 start, Vector2 end, float angle) {
+Vector2 draw_rotate_red(Vector2 start, Vector2 end, float angle) {
     // finds direction
     Vector2 localDirection = Vector2Subtract(start, end);
 
     float distance = Vector2Distance(end, start);
     // makes it smaller
-    Vector2 scaledLocal = Vector2Scale(localDirection, 0.5f);
+    Vector2 scaledLocal = Vector2Scale(localDirection, 0.8f);
 
     // STEP D: Convert degrees to radians and rotate the vector
     Vector2 rotatedScaledLocal = Vector2Rotate(scaledLocal, angle);
@@ -18,15 +18,16 @@ void draw_rotate_red(Vector2 start, Vector2 end, float angle) {
     Vector2 finalStart = Vector2Add(end, rotatedScaledLocal);
 
     DrawLineV(finalStart, end, RED);
+    return finalStart;
 }
 
-void draw_rotate_blue(Vector2 start, Vector2 end, float angle) {
+Vector2 draw_rotate_blue(Vector2 start, Vector2 end, float angle) {
     // finds direction
     Vector2 localDirection = Vector2Subtract(start, end);
 
     float distance = Vector2Distance(end, start);
     // makes it smaller
-    Vector2 scaledLocal = Vector2Scale(localDirection, 0.5f);
+    Vector2 scaledLocal = Vector2Scale(localDirection, 0.8f);
 
     // STEP D: Convert degrees to radians and rotate the vector
     Vector2 rotatedScaledLocal = Vector2Rotate(scaledLocal, angle);
@@ -34,6 +35,7 @@ void draw_rotate_blue(Vector2 start, Vector2 end, float angle) {
     Vector2 finalStart = Vector2Add(end, rotatedScaledLocal);
 
     DrawLineV(finalStart, end, BLUE);
+    return finalStart;
 }
 float rotate_right     = 45.0f * DEG2RAD;
 float rotate_left      = 315.0f * DEG2RAD;
@@ -47,10 +49,10 @@ void render_line(int x1, int y1, int depth) {
     Vector2 line_start = {x1, y1 / 2};
 
     // void draw_rotate_blue(Vector2 start, end, float angle, float shrink);
-    draw_rotate_blue(line_start, line_end, rotate_left);
-    draw_rotate_red(line_start, line_end, rotate_right);
+    Vector2 left  = draw_rotate_blue(line_start, line_end, rotate_left);
+    Vector2 right = draw_rotate_red(line_start, line_end, rotate_right);
 
-    render_line(x1, y1 / 2, depth - 1);
+    render_line(left.x, left.y, depth - 1);
 }
 
 int main() {
