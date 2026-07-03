@@ -1,5 +1,5 @@
-mandelbrot:
-	g++ main.cpp -o mandelbrot -lSDL2
+tree:
+	g++ main.cpp -o tree -lSDL2
 
 clean:
-	rm -rf mandelbrot *.o
+	rm -rf tree *.o
