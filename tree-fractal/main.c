@@ -41,7 +41,7 @@ int main() {
         ClearBackground(BLACK);
 
         DrawLine(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, BLUE);
-        render_line(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, 15, shrink);
+        render_line(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, 20, shrink);
         EndDrawing();
     }
 
