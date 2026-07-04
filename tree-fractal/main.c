@@ -28,8 +28,8 @@ void  render_line(int x1, int y1, int x2, int y2, int depth, float shrink) {
     Vector2 start_left  = draw_rotate_blue(line_start, line_end, -40.0f, shrink);
     Vector2 start_right = draw_rotate_blue(line_start, line_end, +40.0f, shrink);
 
-    render_line(start_left.x, start_left.y, line_end.x, line_end.y, depth - 1, shrink * 0.7f);
-    render_line(start_right.x, start_right.y, line_end.x, line_end.y, depth - 1, shrink * 0.7f);
+    render_line(start_left.x, start_left.y, line_end.x, line_end.y, depth - 1, shrink * 0.9f);
+    render_line(start_right.x, start_right.y, line_end.x, line_end.y, depth - 1, shrink * 0.9f);
 }
 
 int main() {
@@ -40,8 +40,8 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawLine(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT, BLUE);
-        render_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT, 5, shrink);
+        DrawLine(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, BLUE);
+        render_line(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, 15, shrink);
         EndDrawing();
     }
 
