@@ -8,7 +8,7 @@ class Line {
     Vector2 end;   /* vector end of line */
   public:
     void draw();
-    void divide_line_half();
+    void divide_create();
 };
 
 #endif // SRC_LINE_HPP_
