@@ -4,7 +4,8 @@ This repo holds different fractals geometric patterns written in C++ and using t
 SDL2 library in an Ubuntu operating system.
 
 - [X]  Julia set
-- [X]  mandelbrot set
-- [X]  burning ship set
+- [X]  Mandelbrot set
+- [X]  Burning ship set
 - [X]  Tree fractal
-- [ ]  multibrot set
+- [ ]  Koch's curve 
+- [ ]  Multibrot set
