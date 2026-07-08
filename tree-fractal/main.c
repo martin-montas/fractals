@@ -1,8 +1,8 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#define WIDTH  1000
-#define HEIGHT 1000
+#define WIDTH  800
+#define HEIGHT 600
 
 Vector2 draw_rotate_blue(Vector2 start, Vector2 end, float angle, float scale) {
     Vector2 localDirection     = Vector2Subtract(start, end);
@@ -28,8 +28,8 @@ void  render_line(int x1, int y1, int x2, int y2, int depth, float shrink) {
     Vector2 start_left  = draw_rotate_blue(line_start, line_end, -40.0f, shrink);
     Vector2 start_right = draw_rotate_blue(line_start, line_end, +40.0f, shrink);
 
-    render_line(start_left.x, start_left.y, line_end.x, line_end.y, depth - 1, shrink * 0.9f);
-    render_line(start_right.x, start_right.y, line_end.x, line_end.y, depth - 1, shrink * 0.9f);
+    render_line(start_left.x, start_left.y, line_end.x, line_end.y, depth - 1, shrink * 1.0f);
+    render_line(start_right.x, start_right.y, line_end.x, line_end.y, depth - 1, shrink * 1.0f);
 }
 
 int main() {
@@ -40,8 +40,8 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawLine(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, BLUE);
-        render_line(WIDTH / 2, HEIGHT - 200, WIDTH / 2, HEIGHT, 20, shrink);
+        DrawLine(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT, BLUE);
+        render_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT, 10, shrink);
         EndDrawing();
     }
 
