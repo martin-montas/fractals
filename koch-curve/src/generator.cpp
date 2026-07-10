@@ -1,8 +1,8 @@
 #include "generator.hpp"
 #include "line.hpp"
+#include <cstddef>
 
-void Generator::divide_line(Line line) {
-    // finds the middle of the line
+void Generator::divide_line(Line line, std::vector<Line>& vec) {
     Vector2 middle = Vector2Scale(Vector2Add(line.start, line.end), 0.5f);
 
     // finds the direction with the whole length
@@ -55,10 +55,25 @@ void Generator::divide_line(Line line) {
     l3.start = start3;
     l3.end   = end3;
 
-    lines.push_back(l0);
-    lines.push_back(l1);
-    lines.push_back(l2);
-    lines.push_back(l3);
+    vec.push_back(l0);
+    vec.push_back(l1);
+    vec.push_back(l2);
+    vec.push_back(l3);
 }
 
-// void Generator::
+void Generator::generate_lines(int depth, std::vector<Line> old_lines) {
+    std::vector<Line> new_vect;
+    if (depth == 0) {
+        for (auto line : old_lines) {
+            line.draw();
+        }
+        return;
+    }
+
+    if (depth != 0) {
+        for (auto l : old_lines) {
+            divide_line(l, new_vect);
+        }
+    }
+    generate_lines(depth - 1, new_vect);
+}

@@ -7,8 +7,7 @@
 
 class Generator {
   public:
-    std::vector<Line> lines;
-    void              divide_line(Line line);
+    void divide_line(Line line, std::vector<Line>& vec);
+    void generate_lines(int depth, std::vector<Line> old_lines);
 };
-
 #endif // GENERATOR_HPP_
