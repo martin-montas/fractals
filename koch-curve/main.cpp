@@ -12,7 +12,7 @@ int main() {
     InitWindow(WIDTH, HEIGHT, "Fractal: Koch curve");
     SetTargetFPS(60);
     Vector2    lineStart = {50, HEIGHT / 2};
-    Vector2    lineEnd   = {600, HEIGHT / 2};
+    Vector2    lineEnd   = {800, HEIGHT / 2};
     Generator* gen       = new Generator();
 
     Line init;
@@ -24,7 +24,7 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(BLACK);
-        gen->generate_lines(5, vect);
+        gen->generate_lines(4, vect);
         EndDrawing();
     }
 
