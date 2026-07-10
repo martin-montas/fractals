@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "src/line.hpp"
+#include "src/generator.hpp"
 
 #define WIDTH  1000
 #define HEIGHT 1000
@@ -15,13 +16,14 @@ void generate(int depth, std::vector<Line> line_vector) {
 int main() {
     InitWindow(WIDTH, HEIGHT, "Fractal: Koch curve");
     SetTargetFPS(60);
-    Vector2 lineEnd   = {300.0f, 400.0f};
-    Vector2 lineStart = {150.0f, 400.0f};
-    // line0             = new Line();
-    // line0.start       = lineStart;
-    // line0.end         = lineEnd;
+    Vector2    lineEnd   = {300.0f, 400.0f};
+    Vector2    lineStart = {150.0f, 400.0f};
+    Generator* gen       = new Generator();
 
-    // line_vector.push_back(line0);
+    Line init;
+    init.start = lineStart;
+    init.end   = lineEnd;
+    gen->lines.push_back(init);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
