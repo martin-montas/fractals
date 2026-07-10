@@ -1,2 +1,1 @@
-# Mandelbrot-Set
-Madelbrot set in C.
+# groups of fractals 
