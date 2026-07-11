@@ -24,7 +24,7 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(BLACK);
-        gen->generate_lines(4, vect);
+        gen->generate_lines(6, vect);
         EndDrawing();
     }
 
