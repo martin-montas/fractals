@@ -1,12 +1,12 @@
 #include "generator.hpp"
 #include "line.hpp"
+#include <cstddef>
 
-void Generator::divide_line(Line line) {
-    // finds the middle of the line
-    Vector2 middle = Vector2Scale(Vector2Add(lineStart, lineEnd), 0.5f);
+void Generator::divide_line(Line line, std::vector<Line>& vec) {
+    Vector2 middle = Vector2Scale(Vector2Add(line.start, line.end), 0.5f);
 
     // finds the direction with the whole length
-    Vector2 side = Vector2Subtract(lineEnd, lineStart);
+    Vector2 side = Vector2Subtract(line.end, line.start);
 
     // creates a perpendicular vector (with a 90 degree angle)
     Vector2 perp = {side.y, -side.x};
@@ -19,14 +19,14 @@ void Generator::divide_line(Line line) {
     Vector2 peak   = Vector2Add(middle, Vector2Scale(perp, height));
 
     // first half
-    Vector2 start0 = lineStart;
-    Vector2 end0   = Vector2Lerp(lineStart, lineEnd, 1.0f / 3.0f);
+    Vector2 start0 = line.start;
+    Vector2 end0   = Vector2Lerp(line.start, line.end, 1.0f / 3.0f);
 
     // second half
-    Vector2 start1 = Vector2Lerp(lineStart, lineEnd, 2.0f / 3.0f);
-    Vector2 end1   = lineEnd;
+    Vector2 start1 = Vector2Lerp(line.start, line.end, 2.0f / 3.0f);
+    Vector2 end1   = line.end;
 
-    float   len         = Vector2Distance(lineStart, lineEnd);
+    float   len         = Vector2Distance(line.start, line.end);
     Vector2 base_vector = {len / 2, 0.0f};
 
     // last half
@@ -55,8 +55,25 @@ void Generator::divide_line(Line line) {
     l3.start = start3;
     l3.end   = end3;
 
-    lines.push_back(l0);
-    lines.push_back(l1);
-    lines.push_back(l2);
-    lines.push_back(l3);
+    vec.push_back(l0);
+    vec.push_back(l1);
+    vec.push_back(l2);
+    vec.push_back(l3);
+}
+
+void Generator::generate_lines(int depth, std::vector<Line> old_lines) {
+    std::vector<Line> new_vect;
+    if (depth == 0) {
+        for (auto line : old_lines) {
+            line.draw();
+        }
+        return;
+    }
+
+    if (depth != 0) {
+        for (auto l : old_lines) {
+            divide_line(l, new_vect);
+        }
+    }
+    generate_lines(depth - 1, new_vect);
 }
