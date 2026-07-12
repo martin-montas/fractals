@@ -1,13 +1,19 @@
 #ifndef GENERATOR_HPP_
 #define GENERATOR_HPP_
-#include <vector>
-#include "line.hpp"
-#include <raylib.h>
-#include <raymath.h>
 
+#include <vector>
+#include <string>
+#include <tuple>
+
+typedef std::vector<std::tuple<std::string, std::string>> tupl;
 class Generator {
+    std::string _source; /* the starting value */
+    tupl        _rules;  /* a vector of rules */
   public:
-    void divide_line(Line line, std::vector<Line>& vec);
-    void generate_lines(int depth, std::vector<Line> old_lines);
+    inline explicit Generator(std::string source, tupl rules) {
+        _source = source;
+        _rules  = rules;
+    }
+    generate();
 };
 #endif // GENERATOR_HPP_

@@ -5,17 +5,17 @@
 #include "src/generator.hpp"
 #include "src/line.hpp"
 
-#define WIDTH 1000
+#define WIDTH  1000
 #define HEIGHT 1000
 
 int main() {
-  InitWindow(WIDTH, HEIGHT, "Fractal: L System");
-  SetTargetFPS(60);
-  while (!WindowShouldClose()) {
-    BeginDrawing();
-    EndDrawing();
-  }
+    InitWindow(WIDTH, HEIGHT, "Fractal: L System");
+    SetTargetFPS(60);
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+        EndDrawing();
+    }
 
-  CloseWindow();
-  return 0;
+    CloseWindow();
+    return 0;
 }
