@@ -7,12 +7,12 @@
 
 typedef std::vector<std::tuple<std::string, std::string>> tupl;
 class Generator {
-    std::string _source; /* the starting value */
-    tupl        _rules;  /* a vector of rules */
+    std::string _axiom; /* the starting value */
+    tupl        _rules; /* a vector of rules */
   public:
-    inline explicit Generator(std::string source, tupl rules) {
-        _source = source;
-        _rules  = rules;
+    inline explicit Generator(std::string axiom, tupl rules) {
+        _axiom = axiom;
+        _rules = rules;
     }
     generate();
 };
