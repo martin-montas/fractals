@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "src/generator.hpp"
-#include "src/line.hpp"
 
 #define WIDTH  1000
 #define HEIGHT 1000

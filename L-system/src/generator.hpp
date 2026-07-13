@@ -14,6 +14,6 @@ class Generator {
         _axiom = axiom;
         _rules = rules;
     }
-    generate();
+    void generate();
 };
 #endif // GENERATOR_HPP_
