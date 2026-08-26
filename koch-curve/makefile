@@ -38,5 +38,4 @@ lint:
 count:
 	find . \( -name "*.cpp" -o -name "*.hpp"  \) | xargs wc -l
 
-
 .PHONY: clean format lint

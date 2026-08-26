@@ -1,7 +1,7 @@
 SRC_DIR := ./src
 
 CXX := g++
-CXXFLAGS := -g -std=c++20  
+CXXFLAGS := -g -std=c++11  
 LDFLAGS := $(shell pkg-config --cflags --libs raylib) -lm -lX11 -lXrandr -lXi -lXcursor -lXinerama -ldl -lpthread
 COMMON_OBJS := main.o generator.o
 

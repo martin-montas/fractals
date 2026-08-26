@@ -3,17 +3,23 @@
 
 #include <vector>
 #include <string>
-#include <tuple>
+#include <raylib.h>
+#include <utility>
 
-typedef std::vector<std::tuple<std::string, std::string>> tupl;
+struct Turtle {
+    Vector2 position;
+};
+
+typedef std::vector<std::pair<char, std::string>> tupl;
 class Generator {
-    std::string _axiom; /* the starting value */
-    tupl        _rules; /* a vector of rules */
+    std::string                               _axiom; /* the starting value */
+    std::vector<std::pair<char, std::string>> _rules; /* a vector of rules */
   public:
-    inline explicit Generator(std::string axiom, tupl rules) {
-        _axiom = axiom;
+    inline explicit Generator(std::vector<std::pair<char, std::string>> rules) {
         _rules = rules;
     }
-    void generate();
+    std::string generate(size_t iter, std::string gen);
+    void        foward();
+    void        rotate();
 };
 #endif // GENERATOR_HPP_
